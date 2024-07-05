@@ -1,0 +1,51 @@
+.title {
+  font-size: 30px;
+  font-weight: bold; /* 텍스트 굵기 */
+  color: #000000; /* 텍스트 색상 */
+  padding: 20px; /* 상하좌우 여백 */
+  margin-bottom: 8px; /* 하단 여백 */
+}
+
+.button-style {
+  font-size: 0.875rem; /* text-sm */
+  margin-right: 0.5rem; /* mr-2 */
+  margin-bottom: 0.5rem; /* mb-2 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #ffffff; /* hover:bg-sky-300 */
+  color: #000; /* text-black */
+  font-weight: 600; /* font-semibold */
+  border-radius: 9999px; /* rounded-full */
+  border: 1px solid #CBD5E0; /* border border-gray-300 */
+}
+
+.button-style.selected,
+.button-style:hover,
+.button-style:focus {
+  background-color: #28b3fd; /* hover:bg-sky-300 */
+  color: #fff; /* text-black */
+}
+
+@media (min-width: 600px) {
+    .card-view {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 800px) {
+  .card-view {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-view {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1400px) {
+  .card-view {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+

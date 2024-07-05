@@ -1,0 +1,19 @@
+.public-art-card {
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 10px;
+}
+
+.public-art-image {
+  width: 250px;
+  height: 250px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
