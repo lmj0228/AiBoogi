@@ -3,22 +3,47 @@ import { Link } from "react-router-dom";
 
 export default function LoginForm({ handleLogin }) {
 
-    const emailRef = useRef();
+    const useridRef = useRef();
     const pwdRef = useRef();
 
-    const handleClick = () => {
-        if (emailRef.current.value === '') {
+    const handleClick = async () => {
+        if (useridRef.current.value === '') {
             alert("아이디를 입력하세요");
-            emailRef.current.focus();
+            useridRef.current.focus();
             return;
         }
         if (pwdRef.current.value === '') {
             alert("비밀번호를 입력하세요");
-            emailRef.current.focus();
+            pwdRef.current.focus();
             return;
         }
-        handleLogin(emailRef.current.value);
-        alert("로그인이 성공적으로 완료되었습니다.")
+
+        try {
+            const response = await fetch('http://localhost:8080/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userid: useridRef.current.value,
+                    password: pwdRef.current.value,
+                }),
+            });
+    
+            if (response.ok) {
+                const user = await response.json();
+                handleLogin(user);
+                alert("로그인이 성공적으로 완료되었습니다.");
+                window.location.href = '/';  // 홈페이지로 이동
+            } else {
+                const error = await response.json();
+                alert("로그인에 실패했습니다.");
+                console.log('error message : ' + error.message);
+            }
+        } catch (error) {
+            alert("로그인에 실패했습니다.");
+            console.log('error message : ' + error.message);
+        }
     }
 
     return (
@@ -29,7 +54,7 @@ export default function LoginForm({ handleLogin }) {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                         아이디
                     </label>
-                    <input ref={emailRef} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="아이디" />
+                    <input ref={useridRef} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="아이디" />
                     <p className="text-blue-500 text-xs italic">아이디를 입력하세요.</p>
                 </div>
                 <div className="mb-6">

@@ -2,29 +2,25 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function Signup() {
-  const keywords = [
-    "명소", "관광", "문화", "쇼핑", "식당", "자연", "역사", "예술", "음악", "축제",
-    "체험", "레저", "숙박", "음식", "카페", "박물관", "갤러리", "전통", "현대", "야경"
-  ];
+  // const keywords = [
+  //   "명소", "관광", "문화", "쇼핑", "식당", "자연", "역사", "예술", "음악", "축제",
+  //   "체험", "레저", "숙박", "음식", "카페", "박물관", "갤러리", "전통", "현대", "야경"
+  // ];
 
-  const [selectedKeywords, setSelectedKeywords] = useState([]);
+  // const [selectedKeywords, setSelectedKeywords] = useState([]);
 
-  const handleCheckboxChange = (keyword) => {
-    if (selectedKeywords.includes(keyword)) {
-      setSelectedKeywords(selectedKeywords.filter(item => item !== keyword));
-    } else {
-      if (selectedKeywords.length < 3) {
-        setSelectedKeywords([...selectedKeywords, keyword]);
-      } else {
-        alert('3개의 키워드만 선택할 수 있습니다.');
-      }
-    }
-  };
+  // const handleCheckboxChange = (keyword) => {
+  //   if (selectedKeywords.includes(keyword)) {
+  //     setSelectedKeywords(selectedKeywords.filter(item => item !== keyword));
+  //   } else {
+  //     setSelectedKeywords([...selectedKeywords, keyword]);
+  //   }
+  // };
 
   const [form, setForm] = useState({
     username: '',
     password: '',
-    email: '',
+    userid: '',
     confirm_password: ''
   });
 
@@ -39,6 +35,14 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // // 키워드 선택 확인
+    // if (selectedKeywords.length < 3) {
+    //   setMessage('최소 3개의 키워드를 선택해야 합니다.');
+    //   alert('최소 3개의 키워드를 선택해야 합니다.');
+    //   return;
+    // }
+
     // 비밀번호와 비밀번호 확인이 일치하는지 확인
     if (form.password !== form.confirm_password) {
       setMessage('비밀번호가 일치하지 않습니다.');
@@ -50,16 +54,17 @@ export default function Signup() {
       const response = await axios.post('http://localhost:8080/api/users/signup', {
         username: form.username,
         password: form.password,
-        email: form.email
+        userid: form.userid,
+        // keyword: selectedKeywords.join(',')
       });
 
-      setMessage('회원가입이 성공적으로 완료되었습니다. 로그인 페이지로 이동하기');
+      setMessage('회원가입이 성공적으로 완료되었습니다.');
       alert('회원가입이 성공적으로 완료되었습니다.');
       console.log('가입 성공:', response.data);
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        setMessage('이미 존재하는 사용자 이메일 입니다.');
-        alert('이미 존재하는 사용자 이메일 입니다.');
+        setMessage('이미 존재하는 사용자 id 입니다.');
+        alert('이미 존재하는 사용자 id 입니다.');
       } else {
         setMessage('회원가입 중 오류가 발생했습니다.');
         alert('회원가입 중 오류가 발생했습니다.');
@@ -103,9 +108,9 @@ export default function Signup() {
               <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
-                name="email"
+                name="userid"
                 placeholder="아이디"
-                value={form.email}
+                value={form.userid}
                 onChange={handleChange}
                 required
               />
@@ -136,8 +141,8 @@ export default function Signup() {
                 required
               />
 
-              <div className='my-10'>
-              <p className="mb-4">다음 키워드 중 3개를 선택하세요.</p>
+              {/* <div className='my-10'>
+              <p className="mb-4">관심 키워드를 3개 이상 선택하세요.</p>
                 <div className="grid grid-cols-2 gap-4">
                   {keywords.map((keyword, index) => (
                     <div key={index} className="flex items-center">
@@ -154,11 +159,11 @@ export default function Signup() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               <button
                 type="submit"
-                className="w-full text-center py-3 rounded font-bold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none my-1"
+                className="mt-5 w-full text-center py-3 rounded font-bold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none my-1"
               >
                 회원가입
               </button>

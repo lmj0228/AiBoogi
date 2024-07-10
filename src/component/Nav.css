@@ -6,16 +6,20 @@
     font-style: normal;
 }
 
-@media (min-width: 768px) {
-    .mypage-link img {
-        width: 30px; /* 작은 화면에서 이미지 크기 조정 */
-        display: inline-block; /* 이미지가 사라지지 않도록 보장 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* 다른 요소들 위에 오도록 z-index 설정 */
+    background-color: white; /* 배경색 설정 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 살짝 그림자 추가 */
+  }
+  
+@media (max-width: 900px) {
+    .aiboogi {
+        display: none;
     }
-}
-
-@media (min-width: 480px) {
-    .mypage-link img {
-        width: 30px; /* 더 작은 화면에서 이미지 크기 조정 */
-        display: inline-block; /* 이미지가 사라지지 않도록 보장 */
+    .hwan {
+        display: none;
     }
 }

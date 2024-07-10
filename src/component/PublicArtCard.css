@@ -8,7 +8,12 @@
   cursor: pointer;
   border: 1px solid rgb(206, 206, 206);
   border-radius: 10px;
+  /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
+.public-art-card:hover{
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+}
+
 
 .public-art-image {
   width: 250px;
@@ -17,3 +22,7 @@
   border-top-right-radius: 10px;
 }
 
+.add {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
