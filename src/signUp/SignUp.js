@@ -1,22 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  // const keywords = [
-  //   "명소", "관광", "문화", "쇼핑", "식당", "자연", "역사", "예술", "음악", "축제",
-  //   "체험", "레저", "숙박", "음식", "카페", "박물관", "갤러리", "전통", "현대", "야경"
-  // ];
-
-  // const [selectedKeywords, setSelectedKeywords] = useState([]);
-
-  // const handleCheckboxChange = (keyword) => {
-  //   if (selectedKeywords.includes(keyword)) {
-  //     setSelectedKeywords(selectedKeywords.filter(item => item !== keyword));
-  //   } else {
-  //     setSelectedKeywords([...selectedKeywords, keyword]);
-  //   }
-  // };
-
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -36,13 +23,6 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // // 키워드 선택 확인
-    // if (selectedKeywords.length < 3) {
-    //   setMessage('최소 3개의 키워드를 선택해야 합니다.');
-    //   alert('최소 3개의 키워드를 선택해야 합니다.');
-    //   return;
-    // }
-
     // 비밀번호와 비밀번호 확인이 일치하는지 확인
     if (form.password !== form.confirm_password) {
       setMessage('비밀번호가 일치하지 않습니다.');
@@ -51,15 +31,15 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/signup', {
+      const response = await axios.post('http://10.125.121.206:8080/api/user/signup', {
         username: form.username,
         password: form.password,
-        userid: form.userid,
-        // keyword: selectedKeywords.join(',')
+        userid: form.userid
       });
 
       setMessage('회원가입이 성공적으로 완료되었습니다.');
       alert('회원가입이 성공적으로 완료되었습니다.');
+      navigate('/login');
       console.log('가입 성공:', response.data);
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -140,26 +120,6 @@ export default function Signup() {
                 onChange={handleChange}
                 required
               />
-
-              {/* <div className='my-10'>
-              <p className="mb-4">관심 키워드를 3개 이상 선택하세요.</p>
-                <div className="grid grid-cols-2 gap-4">
-                  {keywords.map((keyword, index) => (
-                    <div key={index} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={keyword}
-                        name="keywords"
-                        value={keyword}
-                        checked={selectedKeywords.includes(keyword)}
-                        onChange={() => handleCheckboxChange(keyword)}
-                        className="form-checkbox h-5 w-5 text-blue-600"
-                      />
-                      <label htmlFor={keyword} className="ml-2 text-gray-700">{keyword}</label>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
 
               <button
                 type="submit"

@@ -1,51 +1,35 @@
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { likedCardsState } from '../login/StAtom';
-import PublicArtCard from './PublicArtCard';
+import React, { useEffect } from 'react'; // useEffect 추가
+import { useRecoilState } from 'recoil'; // Recoil 훅 추가
+import { IsLogin, userState } from '../login/StAtom'; // Recoil 상태 추가
 import { Link } from "react-router-dom";
-import { IsLogin } from "../login/StAtom";
+import LoginForm from "../login/LoginForm";
+import LogoutForm from "../login/LogoutForm";
 
 export default function MyPage() {
+  const [isLoginCheck, setIsLoginCheck] = useRecoilState(IsLogin); // 상태 추가
+  const [user, setUser] = useRecoilState(userState); // 상태 추가
 
-  const [IsLoginCheck] = useRecoilState(IsLogin);
-  const [likedCards, setLikedCards] = useRecoilState(likedCardsState);
-
-  const handleHeartClick = (artId) => {
-    setLikedCards(prevLikedCards =>
-      prevLikedCards.some(card => card.title === artId)
-        ? prevLikedCards.filter(card => card.title !== artId)
-        : [...prevLikedCards, { title: artId, isHearted: true }]
-    );
-  };
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem('user'));
+    const savedIsLoginCheck = localStorage.getItem('isLoginCheck') === 'true';
+    if (savedUser) {
+      setUser(savedUser);
+    }
+    setIsLoginCheck(savedIsLoginCheck);
+  }, [setUser, setIsLoginCheck]);
 
   return (
     <div className='w-full h-full flex flex-col justify-center items-center'>
-      <Link to="/login" className="p font-bold mx-1 inline-block px-2 py-2
-                            whitespace-nowrap mt-20">
-          {IsLoginCheck ? "로그아웃" : "로그인"}
-      </Link>
-      {!IsLoginCheck && ( // 로그아웃 상태일 때만 회원가입 링크 보이기
-                        <Link to="/signup" className="p font-bold mx-1 inline-block px-2 py-2
-                                whitespace-nowrap lg:mt-0">
-                            회원가입
-                        </Link>
-                    )}
-
-      <p className='mt-20'>좋아요 목록</p>
-      <div className="card-view w-full grid gap-4 mx-auto justify-center mb-20">
-       
-        {likedCards.filter(card => card.isHearted).map(card => (
-          <PublicArtCard
-            key={card.title}
-            artId={card.title}
-            imgSrc={card.image}
-            title={card.title}
-            addr1={card.address}
-            isHearted={card.isHearted}
-            onHeartClick={handleHeartClick}
-          />
-        ))}
+      <div className="w-full h-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        {isLoginCheck ?
+          <LogoutForm user={user} setUser={setUser} setIsLoginCheck={setIsLoginCheck} /> :
+          <LoginForm />
+        }
       </div>
+
+      <Link to="/signup" className="p font-bold mx-1 inline-block px-2 py-2 whitespace-nowrap lg:mt-0">
+        회원가입
+      </Link>
     </div>
   );
 }

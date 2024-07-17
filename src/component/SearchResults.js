@@ -27,7 +27,7 @@ export default function SearchResults() {
           results.map(item => (
             <PublicArtCard
               key={item.id}
-              artId={item.title}
+              artId={item.id}
               imgSrc={item.image}
               title={item.title}
               addr1={item.address}
