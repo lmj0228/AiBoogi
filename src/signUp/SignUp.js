@@ -61,9 +61,9 @@ export default function Signup() {
 
             <div className="mt-20 text-grey-dark">
               이미 계정이 있습니까?
-              <a className="no-underline border-b border-blue text-blue mx-3" href="../login/">
+              <button className="no-underline border-b border-blue text-blue mx-3" onClick={() => navigate('/login')}>
                 클릭하여 로그인 페이지로 이동하기
-              </a>
+              </button>
             </div>
 
             <div className="bg-white my-10 px-6 py-8 rounded shadow-md text-black w-full">
@@ -131,13 +131,13 @@ export default function Signup() {
               <div className="text-center text-sm text-grey-dark mt-4">
                 회원가입 시
                 <br />
-                <a className="mx-1 no-underline border-b border-black text-grey-dark" href="#">
+                <button className="mx-1 no-underline border-b border-black text-grey-dark">
                   '서비스 약관'
-                </a>
+                </button>
                 과
-                <a className="mx-1 no-underline border-b border-black text-grey-dark" href="#">
+                <button className="mx-1 no-underline border-b border-black text-grey-dark">
                   '개인정보 처리 방침'
-                </a>
+                </button>
                 에 동의합니다.
               </div>
 
@@ -148,4 +148,3 @@ export default function Signup() {
     </div>
   );
 }
-

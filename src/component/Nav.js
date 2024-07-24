@@ -16,10 +16,10 @@ export default function Nav() {
 
     // localStorage에서 사용자 정보 가져오기
     const user = JSON.parse(localStorage.getItem('user'));
-    
+
     const handleSearchdiv = () => {
         setSearchQuery(inputValue); // 검색어 설정
-        console.log('검색어 = ', searchQuery)
+        console.log('검색어 = ', searchQuery);
         navigate(`/search?query=${inputValue}`);
     }
 
@@ -33,7 +33,6 @@ export default function Nav() {
         <nav className="navbar w-full flex items-center justify-between flex-wrap pt-2 pb-2">
 
             <div className="w-2/3 mx-auto flex justify-between items-center my-2 mb-1">
-
                 <div onClick={clickBoogi} className="aiboogi flex justify-center items-center w-1/3">
                     <Link to="/" className=" whitespace-nowrap text-center font-semibold text-3xl tracking-tight rounded hover:border-transparent">
                         AI BOOGI
@@ -60,17 +59,14 @@ export default function Nav() {
                 </div>
 
                 <div className="w-1/3 flex justify-center items-center">
-
                     {user && (
                         <span className="hwan p text-base font-bold whitespace-nowrap mx-4">{user.username}님 환영합니다</span>
                     )}
-
                     {user && (
                         <Link to="/heartList" className="w-14 mypage-link font-bold mx-1 inline-block text-base px-2 py-2">
                             <img src={Heart} alt="Heart" />
                         </Link>
                     )}
-
                     <Link to="/mypage" className="w-14 mypage-link font-bold mx-1 inline-block text-base px-2 py-2">
                         <img src={Mypage} alt="Mypage" />
                     </Link>

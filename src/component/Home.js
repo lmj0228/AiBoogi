@@ -1,4 +1,4 @@
-// src/component/Home.js
+// 1. 필요한 모듈과 상태 관리를 위해 Recoil 상태를 불러옵니다.
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { likedCardsState, searchQueryState, userState, heartsState } from '../login/StAtom.js';
@@ -7,6 +7,7 @@ import HeartIcon from './HeartIcon';
 import axios from 'axios';
 import './Home.css';
 
+// 2. 다양한 상태를 관리하기 위한 useState와 useRecoilState를 사용합니다.
 export default function Home() {
   const [tdata, setTdata] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
@@ -20,6 +21,7 @@ export default function Home() {
 
   const ITEMS_PER_PAGE = 20;
 
+// 3. 데이터를 불러오는 함수를 정의하고, useEffect를 사용하여 컴포넌트가 마운트될 때 데이터를 불러옵니다.
   const getData = useCallback(async () => {
     try {
       const response = await fetch('./AllData.json');
@@ -44,6 +46,7 @@ export default function Home() {
     setPage(0);
   }, [getData]);
 
+  // 4. 무한 스크롤을 구현하기 위해 IntersectionObserver를 사용합니다.
   const loadMoreData = useCallback(() => {
     const nextPage = page + 1;
     const start = nextPage * ITEMS_PER_PAGE;
@@ -62,9 +65,8 @@ export default function Home() {
       }
     });
 
-    if (observer && document.querySelector('#load-more-trigger')) {
-      observer.observe(document.querySelector('#load-more-trigger'));
-    }
+    const triggerElement = document.querySelector('#load-more-trigger'); // 변경된 줄
+    if (triggerElement) observer.observe(triggerElement); // 변경된 줄
 
     observerRef.current = observer;
 
@@ -73,6 +75,7 @@ export default function Home() {
     };
   }, [displayedData, tdata, loadMoreData]);
 
+// 5. displayedData 상태가 변경될 때마다 PublicArtCard 컴포넌트를 생성하여 cardTags 상태를 업데이트합니다.
   useEffect(() => {
     const tm = displayedData.map(item => (
       <PublicArtCard
@@ -88,6 +91,7 @@ export default function Home() {
     setCardTags(tm);
   }, [displayedData, likedCards]);
 
+// 6. 컴포넌트의 렌더링 부분입니다.
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="card-view w-full grid gap-4 mx-auto justify-center my-28">

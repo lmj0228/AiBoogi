@@ -6,10 +6,11 @@ import LoginForm from "../login/LoginForm";
 import LogoutForm from "../login/LogoutForm";
 
 export default function MyPage() {
-  const [isLoginCheck, setIsLoginCheck] = useRecoilState(IsLogin); // 상태 추가
-  const [user, setUser] = useRecoilState(userState); // 상태 추가
+  const [isLoginCheck, setIsLoginCheck] = useRecoilState(IsLogin); // 로그인 여부 상태를 관리하는 훅
+  const [user, setUser] = useRecoilState(userState); // 사용자 정보를 관리하는 훅
 
   useEffect(() => {
+    // 로컬 스토리지에서 사용자 정보와 로그인 여부를 가져옴
     const savedUser = JSON.parse(localStorage.getItem('user'));
     const savedIsLoginCheck = localStorage.getItem('isLoginCheck') === 'true';
     if (savedUser) {

@@ -5,6 +5,7 @@ import Nav from "./component/Nav";
 import Home from "./component/Home"
 import MyPage from './component/MyPage';
 import HeartList from './component/HeartList';
+import SearchResults from './component/SearchResults';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/mypage' element={<MyPage />} />
             <Route path='/heartList' element={<HeartList />} />
+            <Route path="/search" element={<SearchResults />} />
           </Routes>
         </main>
     
