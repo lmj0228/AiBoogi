@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'; // useEffect 추가
 import { useRecoilState } from 'recoil'; // Recoil 훅 추가
 import { IsLogin, userState } from '../login/StAtom'; // Recoil 상태 추가
-import { Link } from "react-router-dom";
 import LoginForm from "../login/LoginForm";
 import LogoutForm from "../login/LogoutForm";
 
@@ -27,10 +26,6 @@ export default function MyPage() {
           <LoginForm />
         }
       </div>
-
-      <Link to="/signup" className="p font-bold mx-1 inline-block px-2 py-2 whitespace-nowrap lg:mt-0">
-        회원가입
-      </Link>
     </div>
   );
 }

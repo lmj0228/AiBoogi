@@ -39,7 +39,7 @@ export default function Signup() {
 
       setMessage('회원가입이 성공적으로 완료되었습니다.');
       alert('회원가입이 성공적으로 완료되었습니다.');
-      navigate('/login');
+      navigate('/mypage');
       console.log('가입 성공:', response.data);
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -54,14 +54,14 @@ export default function Signup() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-20">
       <form onSubmit={handleSubmit}>
         <div className="bg-grey-lighter flex flex-col">
           <div className="container max-w-lg mx-auto flex-1 flex flex-col items-center justify-center px-2">
 
-            <div className="mt-20 text-grey-dark">
+            <div className="text-grey-dark">
               이미 계정이 있습니까?
-              <button className="no-underline border-b border-blue text-blue mx-3" onClick={() => navigate('/login')}>
+              <button className="no-underline border-b border-blue text-blue mx-3" onClick={() => navigate('/mypage')}>
                 클릭하여 로그인 페이지로 이동하기
               </button>
             </div>
